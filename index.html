@@ -301,8 +301,9 @@
   function share() {
     // link and hashtag live in the text itself so X keeps this exact line order
     const text = [
-      `ホームページに隠されたゲーム「みそダッシュ」で ${score}点 をとったよ！`,
+      `ホームページに隠されたゲーム「みそダッシュ」で${score}点をとったよ！`,
       `🥕 x${carrotsGot}　称号「${rankLabel(score)}」`,
+      'きみは何点とれる？🐰',
       HOME_URL,
       '#みそダッシュ',
     ].join('\n');
