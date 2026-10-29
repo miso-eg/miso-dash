@@ -171,6 +171,7 @@
   let W = 800;                        // logical width (narrower in portrait)
   const GRAV = 0.85, JUMP_V = -15.5, DJUMP_V = -12.5;
   const CARROT_PTS = 30;
+  const HOME_URL = 'https://miso-eg.github.io/';
 
   const $ = id => document.getElementById(id);
   const cvs = $('game'), ctx = cvs.getContext('2d');
@@ -298,12 +299,14 @@
   }
 
   function share() {
-    const text = `みそダッシュで ${score}点 とったよ！🐰\n🥕×${carrotsGot}　称号「${rankLabel(score)}」`;
-    const url = location.href.split(/[?#]/)[0];
-    const intent = 'https://x.com/intent/tweet'
-      + `?text=${encodeURIComponent(text)}`
-      + `&url=${encodeURIComponent(url)}`
-      + `&hashtags=${encodeURIComponent('みそダッシュ')}`;
+    // link and hashtag live in the text itself so X keeps this exact line order
+    const text = [
+      `ホームページに隠されたゲーム「みそダッシュ」で ${score}点 をとったよ！`,
+      `🥕 x${carrotsGot}　称号「${rankLabel(score)}」`,
+      HOME_URL,
+      '#みそダッシュ',
+    ].join('\n');
+    const intent = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
     window.open(intent, '_blank', 'noopener');
   }
 
