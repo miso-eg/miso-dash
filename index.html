@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>もふうさラン</title>
-<meta name="description" content="もふもふうさぎが走る、ワンタップのエンドレスランゲーム。にんじんを集めてハイスコアを目指そう！">
+<title>みそダッシュ</title>
+<meta name="description" content="もふもふうさぎの「みそ」が走る、ワンタップのエンドレスランゲーム。にんじんを集めてハイスコアを目指そう！">
 <meta name="theme-color" content="#f6efe4">
-<meta property="og:title" content="もふうさラン">
-<meta property="og:description" content="もふもふうさぎが走る、ワンタップのエンドレスランゲーム">
+<meta property="og:title" content="みそダッシュ">
+<meta property="og:description" content="もふもふうさぎの「みそ」が走る、ワンタップのエンドレスランゲーム">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐰</text></svg>">
@@ -124,7 +124,7 @@
 <body>
 <main>
   <header>
-    <h1 class="logo">もふうさ<span>ラン</span></h1>
+    <h1 class="logo">みそ<span>ダッシュ</span></h1>
     <button id="muteBtn" class="icon-btn" aria-label="サウンド切り替え">🔊</button>
   </header>
 
@@ -133,7 +133,7 @@
     <div id="hud"><span class="hi">HI <span id="hiScore">00000</span></span><span id="score">00000</span></div>
 
     <div id="titleOv" class="ov">
-      <h2>もふうさ<span>ラン</span></h2>
+      <h2>みそ<span>ダッシュ</span></h2>
       <p class="sub">いがぐりや切り株をよけて、にんじんを集めよう！</p>
       <div class="row"><button id="startBtn" class="btn primary">はじめる</button></div>
       <p class="hint">タップ / スペースでジャンプ ・ 空中でもう1回ジャンプ</p>
@@ -190,8 +190,8 @@
   // ---------- state ----------
   let state = 'title';                // title | play | over
   let paused = false;
-  let best = parseInt(store.get('mofuusa_best', '0'), 10) || 0;
-  let muted = store.get('mofuusa_muted', '0') === '1';
+  let best = parseInt(store.get('miso_best', '0'), 10) || 0;
+  let muted = store.get('miso_muted', '0') === '1';
   let score = 0, dist = 0, bonus = 0, carrotsGot = 0, speed = 6.5;
   let nextMilestone = 100, overAt = 0, shake = 0, scroll = 0, time = 0;
   let spawnObs = 0, spawnCarrot = 0;
@@ -248,7 +248,7 @@
   updateMuteBtn();
   ui.mute.addEventListener('click', () => {
     muted = !muted;
-    store.set('mofuusa_muted', muted ? '1' : '0');
+    store.set('miso_muted', muted ? '1' : '0');
     updateMuteBtn();
     if (!muted) ensureAudio();
     ui.mute.blur();
@@ -279,7 +279,7 @@
     sfx('hit');
     if (navigator.vibrate) navigator.vibrate(60);
     const isBest = score > best;
-    if (isBest) { best = score; store.set('mofuusa_best', String(best)); ui.hi.textContent = pad(best); }
+    if (isBest) { best = score; store.set('miso_best', String(best)); ui.hi.textContent = pad(best); }
     ui.finalScore.textContent = score;
     ui.finalBest.textContent = best;
     ui.finalCarrots.textContent = carrotsGot;
@@ -293,17 +293,17 @@
     if (s < 500) return 'かけだしうさぎ';
     if (s < 1000) return 'もふもふランナー';
     if (s < 2000) return 'にんじんハンター';
-    if (s < 4000) return 'はやてのもふうさ';
-    return '伝説のもふうさ';
+    if (s < 4000) return 'はやてのみそ';
+    return '伝説のみそ';
   }
 
   function share() {
-    const text = `もふうさランで ${score}点 とったよ！🐰\n🥕×${carrotsGot}　称号「${rankLabel(score)}」`;
+    const text = `みそダッシュで ${score}点 とったよ！🐰\n🥕×${carrotsGot}　称号「${rankLabel(score)}」`;
     const url = location.href.split(/[?#]/)[0];
     const intent = 'https://x.com/intent/tweet'
       + `?text=${encodeURIComponent(text)}`
       + `&url=${encodeURIComponent(url)}`
-      + `&hashtags=${encodeURIComponent('もふうさラン')}`;
+      + `&hashtags=${encodeURIComponent('みそダッシュ')}`;
     window.open(intent, '_blank', 'noopener');
   }
 
